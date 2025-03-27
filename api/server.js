@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const serverless = require('serverless-http');
+const cors = require('cors');
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -38,6 +39,7 @@ const Message = mongoose.model('Message', messageSchema);
 
 // Middlewares
 app.use(express.json());
+app.use(cors());
 
 // Gerar JWT
 function generateToken(userId) {
