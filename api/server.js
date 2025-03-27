@@ -39,7 +39,11 @@ const Message = mongoose.model('Message', messageSchema);
 
 // Middlewares
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'https://cnappp.netlify.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // Gerar JWT
 function generateToken(userId) {
@@ -120,14 +124,6 @@ app.get('/users', async (req, res) => {
     res.status(500).send(err);
   }
 });
-
-// Iniciar servidor local (npm start)
-// if (process.env.NODE_ENV !== 'production') {
-//   const PORT = process.env.PORT || 3000;
-//   app.listen(PORT, () => {
-//     console.log(`✅ Servidor rodando em http://localhost:${PORT}`);
-//   });
-// }
 
 // Exportação serverless (Vercel)
 module.exports = app;
