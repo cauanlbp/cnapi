@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const serverless = require('serverless-http');
+const port = process.env.PORT || 3000;
 
 const app = express();
 
@@ -14,8 +15,8 @@ mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => console.log('✅ Conectado ao MongoDB'))
-.catch(err => console.error('❌ Erro ao conectar ao MongoDB:', err));
+  .then(() => console.log('✅ Conectado ao MongoDB'))
+  .catch(err => console.error('❌ Erro ao conectar ao MongoDB:', err));
 
 // Schemas e Models
 const userSchema = new mongoose.Schema({
@@ -119,12 +120,12 @@ app.get('/users', async (req, res) => {
 });
 
 // Iniciar servidor local (npm start)
-if (process.env.NODE_ENV !== 'production') {
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`✅ Servidor rodando em http://localhost:${PORT}`);
-  });
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   const PORT = process.env.PORT || 3000;
+//   app.listen(PORT, () => {
+//     console.log(`✅ Servidor rodando em http://localhost:${PORT}`);
+//   });
+// }
 
 // Exportação serverless (Vercel)
 module.exports = app;
